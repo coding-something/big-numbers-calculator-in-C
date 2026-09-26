@@ -1,25 +1,35 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 char* multiply (char* raw_a, char* raw_b);
 void clear_zeroes_from_front(char* str, int full_str_len, int full_result_first_i);
 void zero_str_arr(char* str, int str_len);
 char* filter_str_zeros(const char* raw_str);
 
+char* get_user_input_str();
+char* resize_str_arr(char* original_str, size_t* current_limit);
+bool check_allocated_memory_of_str(char* str);
+
+void flush_input();
+
+
 int main(){
-    char num1[100];
-    char num2[100];
+    char* num1;
+    char* num2;
     char* result;
     char user_input;
     bool exit_program = false;
 
     while (exit_program == false){
         printf("First number: ");
-        scanf(" %s", &num1);
+        num1 = get_user_input_str();
         printf("Second number: ");
-        scanf(" %s", &num2);
+        num2 = get_user_input_str();
         result = multiply(num1, num2);
+        free(num1);
+        free(num2);
         printf("Result of multiplication is: %s \n", result);
         free(result);
 
@@ -28,16 +38,18 @@ int main(){
         if (user_input == 'Y' || user_input == 'y'){
             exit_program = true;
         }
+        flush_input();
     }
     return 0;
 }
 
-
+//Multiply big numbers
 char* multiply (char* raw_a, char* raw_b) {
   char* a = filter_str_zeros(raw_a);
   char* b = filter_str_zeros(raw_b);
   
-  int result_len = 1000;
+  //Calculate length of result ahead of time
+  int result_len = strlen(a) + strlen(b) + 1;
   char* result = calloc(result_len, sizeof(char));
   zero_str_arr(result, result_len);
   
@@ -83,7 +95,7 @@ char* multiply (char* raw_a, char* raw_b) {
   return result;
   }
 
-
+//Remove zeroes from front of string
 void clear_zeroes_from_front(char* str, int full_str_len, int full_result_first_i){
   int first_non_zero_i = 0;
   while (first_non_zero_i < full_str_len && str[first_non_zero_i] == '0'){
@@ -133,4 +145,56 @@ char* filter_str_zeros(const char* raw_str){
   }
   filtered_str[filtered_str_len] = '\0';
   return filtered_str;
+}
+
+//Get user input and handle automatically allocating memory to the arr
+char* get_user_input_str(){
+  char input_character = ' ';
+  size_t current_limit = 50;
+  size_t char_i = 0;
+  bool is_newline = false;
+  char* str = malloc(current_limit);
+
+  while (is_newline == false){
+    //Check if arr is big enough for next char
+    if (char_i >= current_limit - 1){
+      str = resize_str_arr(str, &current_limit);
+    }
+
+    input_character = getchar();
+    if (input_character == '\n'){
+      is_newline = true;
+      break;
+    }
+    str[char_i] = input_character;
+    char_i++;
+  }
+  //Adding null terminator to end
+  str[char_i] = '\0';
+  return str;
+
+}
+
+//Checks if memory has been successfully allocated or not
+bool check_allocated_memory_of_str(char* str){
+  if (str != NULL){
+    return true;
+  }
+  printf("Error, memory allocation failed.");
+  return false;
+}
+
+//Resize arr
+char* resize_str_arr(char* original_str, size_t* current_limit){
+  *current_limit *= 2;
+  char* temp_str = realloc(original_str, *current_limit);
+  if (check_allocated_memory_of_str(temp_str) == false){
+    free(original_str);
+  }
+  return temp_str;
+}
+
+//Flush old terminal input
+void flush_input(){
+  while(getchar() != '\n');
 }
