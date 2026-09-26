@@ -13,4 +13,4 @@ https://github.com/coding-something/factorial-of-big-numbers.
 
 ## ❓ How to use the calculator
 
-It is simple, just open the exe file or compile the master file and then run it. A terminal window will appear and you can input any numbers, then you will get the result and the program will give you an option to either exit or do another multiplication. It really is that simple, just please be aware that it is fragile and if you input anything else than pure numbers, you will get either a bug (ASCII values for letter for example) or the program will crash. Also there is still a limit for how big the numbers can be, but I am planning to fix that later on.
+It is simple, just open the exe file or compile the master file and then run it. A terminal window will appear and you can input any numbers, then you will get the result and the program will give you an option to either exit or do another multiplication. It really is that simple, just please be aware that it is fragile and if you input anything else than pure numbers, you will get either a bug (ASCII values for letter for example) or the program will crash.
