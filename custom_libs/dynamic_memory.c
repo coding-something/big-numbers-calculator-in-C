@@ -4,11 +4,7 @@
 
 //Check if memory has been successfully allocated or not
 bool check_allocated_memory_of_str(char* str){
-  if (str != NULL){
-    return true;
-  }
-  printf("Error, memory allocation failed.");
-  return false;
+  return (str != NULL) ? true : false;
 }
 
 //Resize arr to double its original limit
