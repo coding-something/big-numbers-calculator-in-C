@@ -1,6 +1,7 @@
 #include "mode_logic.h"
 #include "dynamic_input.h"
 #include "multiplication_logic.h"
+#include "factorial_logic.h"
 
 char get_mode(){
     char mode;
@@ -50,7 +51,20 @@ void trigger_multiplication_mode(){
 }
 
 void trigger_factorial_mode(){
-    printf("Sorry, this feature is not implemented yet. \n");
+    int num;
+    char* result;
+    char user_input;
+    bool exit_mode = false;
+
+    while (exit_mode == false){
+        printf("Factorial of: ");
+        scanf("%d", &num);
+        result = calculate_factorial(num);
+        printf("Result is %s \n", result);
+        free(result);
+
+        exit_mode = check_for_user_exit(true);
+    }
 }
 
 bool check_for_user_exit(bool is_mode){
