@@ -1,6 +1,5 @@
 #ifndef MODE_LOGIC
 #define MODE_LOGIC
-//Work in progress.
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
