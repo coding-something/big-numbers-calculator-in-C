@@ -1,15 +1,27 @@
 #include "multiplication_logic.h"
+#include "decimals_logic.h"
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 //Multiply big numbers
 char* multiply (char* raw_a, char* raw_b) {
   char* a = filter_str_zeros(raw_a);
   char* b = filter_str_zeros(raw_b);
-  
-  //Calculate length of result ahead of time
+  size_t a_decimal_point_i = find_decimal_point_i(a);
+  size_t b_decimal_point_i = find_decimal_point_i(b);
+  size_t total_decimal_count = count_decimals(a, a_decimal_point_i) + count_decimals(b, b_decimal_point_i);
+  //Remove dots from strings if the decimal point exists
+  if (a_decimal_point_i != 0){
+    a = remove_decimal_point(a, a_decimal_point_i);
+  }
+  if (b_decimal_point_i != 0){
+    b = remove_decimal_point(b, b_decimal_point_i);
+  }
+
+  //Calculate length of result ahead of time, add reserve indexes for null terminator and decimal point
   int result_len = strlen(a) + strlen(b) + 1;
-  char* result = calloc(result_len, sizeof(char));
+  char* result = calloc(result_len + 1, sizeof(char));
   zero_str_arr(result, result_len);
   
   int i_shift = 0;
@@ -48,9 +60,11 @@ char* multiply (char* raw_a, char* raw_b) {
     
     i_shift++;
     }
-  clear_zeroes_from_front(result, result_len, full_result_first_i);
   free(a);
   free(b);
+  clear_zeroes_from_front(result, result_len, full_result_first_i);
+  insert_decimal_point(result, total_decimal_count);
+
   return result;
   }
 
