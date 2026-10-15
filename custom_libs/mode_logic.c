@@ -32,7 +32,6 @@ void trigger_multiplication_mode(){
     char* num1;
     char* num2;
     char* result;
-    char user_input;
     bool exit_mode = false;
 
     while (exit_mode == false){
@@ -53,7 +52,6 @@ void trigger_multiplication_mode(){
 void trigger_factorial_mode(){
     int num;
     char* result;
-    char user_input;
     bool exit_mode = false;
 
     while (exit_mode == false){

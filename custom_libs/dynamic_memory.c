@@ -12,7 +12,8 @@ char* resize_str_arr(char* original_str, size_t* current_limit){
   *current_limit *= 2;
   char* temp_str = realloc(original_str, *current_limit);
   if (check_allocated_memory_of_str(temp_str) == false){
-    free(original_str);
+    printf("Memory allocation failure in resize_str_arr function. Exiting program.");
+    exit(1);
   }
   return temp_str;
 }
