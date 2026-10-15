@@ -36,14 +36,13 @@ size_t count_decimals(char* num, size_t d_i){
     return amount_of_decimals;
 }
 
-char* remove_decimal_point(char* num, size_t d_i){
+void remove_decimal_point(char* num, size_t d_i){
     for (size_t i = d_i; num[i] != '\0'; i++){
         num[i] = num[i + 1];
     }
-    return num;
 }
 
-char* pre_fill_decimal_with_zeroes(char* num, size_t zero_count){
+void pre_fill_decimal_with_zeroes(char* num, size_t zero_count){
     size_t i = strlen(num);
     //Shift arr before adding zeros
     while (i > 0){
@@ -58,19 +57,18 @@ char* pre_fill_decimal_with_zeroes(char* num, size_t zero_count){
         i++;
         zero_count--;
     }
-    return num;
 }
 
-char* insert_decimal_point(char* num, size_t decimal_count){
+void insert_decimal_point(char* num, size_t decimal_count){
     //Check if decimal point exists
     if (decimal_count == 0){
-        return num;
+        return;
     }
     size_t result_len = strlen(num);
     size_t i = result_len;
     //Pre fill with zeroes if input number length is lower than decimal count, which would cause i to be negative later on
     if(i < decimal_count){
-        num = pre_fill_decimal_with_zeroes(num, decimal_count);
+        pre_fill_decimal_with_zeroes(num, decimal_count);
         result_len = strlen(num);
         i = result_len;
     }
@@ -83,6 +81,4 @@ char* insert_decimal_point(char* num, size_t decimal_count){
     num[i + 1] = num[i];
     //Insert decimal point
     num[i] = '.';
-
-    return num;
 }

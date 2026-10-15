@@ -20,12 +20,12 @@ char* multiply (char* raw_a, char* raw_b) {
   if (is_a_decimal == true){
     raw_a_decimal_point_i = find_decimal_point_i(raw_a);
     total_decimal_count += count_decimals(raw_a, raw_a_decimal_point_i);
-    raw_a = remove_decimal_point(raw_a, raw_a_decimal_point_i);
+    remove_decimal_point(raw_a, raw_a_decimal_point_i);
   }
   if (is_b_decimal == true){
     raw_b_decimal_point_i = find_decimal_point_i(raw_b);
     total_decimal_count += count_decimals(raw_b, raw_b_decimal_point_i);
-    raw_b = remove_decimal_point(raw_b, raw_b_decimal_point_i);
+    remove_decimal_point(raw_b, raw_b_decimal_point_i);
   }
 
   //Call functions to handle negative numbers
