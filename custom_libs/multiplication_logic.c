@@ -1,5 +1,6 @@
 #include "multiplication_logic.h"
 #include "decimals_logic.h"
+#include "negative_num_logic.h"
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -8,9 +9,12 @@
 char* multiply (char* raw_a, char* raw_b) {
   bool is_a_decimal = check_if_decimal_point_exists(raw_a);
   bool is_b_decimal = check_if_decimal_point_exists(raw_b);
+  bool is_a_negative = check_for_minus_sign(raw_a);
+  bool is_b_negative = check_for_minus_sign(raw_b);
   size_t raw_a_decimal_point_i = 0;
   size_t raw_b_decimal_point_i = 0;
   size_t total_decimal_count = 0;
+  size_t minus_sign_offset = 0;
 
   //Call these functions for decimal numbers
   if (is_a_decimal == true){
@@ -24,10 +28,20 @@ char* multiply (char* raw_a, char* raw_b) {
     raw_b = remove_decimal_point(raw_b, raw_b_decimal_point_i);
   }
 
+  //Call functions to handle negative numbers
+  if (is_a_negative == true){
+    remove_minus_sign(raw_a, strlen(raw_a));
+    minus_sign_offset = 1;
+  }
+  if (is_b_negative == true){
+    remove_minus_sign(raw_b, strlen(raw_b));
+    minus_sign_offset = 1;
+  }
+
   char* a = filter_str_zeros(raw_a);
   char* b = filter_str_zeros(raw_b);
-  //Calculate length of result ahead of time, add reserve indexes for decimal point and null terminator
-  int result_len = strlen(a) + strlen(b) + total_decimal_count + 1;
+  //Calculate length of result ahead of time, add reserve indexes for decimal point, minus sign and null terminator
+  int result_len = strlen(a) + strlen(b) + total_decimal_count + minus_sign_offset + 1;
   char* result = calloc(result_len, sizeof(char));
   zero_str_arr(result, result_len);
   
@@ -73,8 +87,12 @@ char* multiply (char* raw_a, char* raw_b) {
   if (total_decimal_count > 0){
     insert_decimal_point(result, total_decimal_count);
   }
-  
 
+  //Check for minus in result
+  if (is_a_negative != is_b_negative){
+    add_minus_sign(result, result_len);
+  }
+  
   return result;
   }
 
