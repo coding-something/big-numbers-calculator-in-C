@@ -1,4 +1,4 @@
-#include "negative_num_logic.h"
+#include "../headers/negative_num_logic.h"
 
 bool check_for_minus_sign(char* num){
     return num[0] == '-';

@@ -1,5 +1,5 @@
-#include "dynamic_input.h"
-#include "dynamic_memory.h"
+#include "../headers/dynamic_input.h"
+#include "../headers/dynamic_memory.h"
 #include <stddef.h>
 #include <stdbool.h>
 #include <stdlib.h>

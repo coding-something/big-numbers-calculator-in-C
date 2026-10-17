@@ -1,5 +1,5 @@
 #include <stdbool.h>
-#include "custom_libs/mode_logic.h"
+#include "modules/headers/mode_logic.h"
 
 int main(){
     bool exit_program = false;
