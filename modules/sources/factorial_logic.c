@@ -1,5 +1,5 @@
-#include "factorial_logic.h"
-#include "dynamic_memory.h"
+#include "../headers/factorial_logic.h"
+#include "../headers/dynamic_memory.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

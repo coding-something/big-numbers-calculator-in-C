@@ -1,4 +1,4 @@
-#include "dynamic_memory.h"
+#include "../headers/dynamic_memory.h"
 #include <stdlib.h>
 #include <stdio.h>
 

@@ -1,6 +1,6 @@
-#include "multiplication_logic.h"
-#include "decimals_logic.h"
-#include "negative_num_logic.h"
+#include "../headers/multiplication_logic.h"
+#include "../headers/decimals_logic.h"
+#include "../headers/negative_num_logic.h"
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>

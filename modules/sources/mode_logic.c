@@ -1,7 +1,7 @@
-#include "mode_logic.h"
-#include "dynamic_input.h"
-#include "multiplication_logic.h"
-#include "factorial_logic.h"
+#include "../headers/mode_logic.h"
+#include "../headers/dynamic_input.h"
+#include "../headers/multiplication_logic.h"
+#include "../headers/factorial_logic.h"
 
 char get_mode(){
     char mode;
