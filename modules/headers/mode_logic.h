@@ -20,6 +20,11 @@ This function triggers secondary loop for multiplication.
 void trigger_multiplication_mode();
 
 /*
+This function triggers secondary loop for addition and subtraction.
+*/
+void trigger_addition_and_subtraction_mode();
+
+/*
 This function triggers secondary loop for factorial. NOT IMPLEMENTED YET.
 */
 void trigger_factorial_mode();

@@ -5,7 +5,7 @@
 
 char get_mode(){
     char mode;
-    printf("Choose calculator mode: M - Multiply, F - Factorial.\n");
+    printf("Choose calculator mode: A - Add and subtract, M - Multiply, F - Factorial.\n");
     printf("Chosen mode: ");
     mode = getchar();
     flush_input();
@@ -14,6 +14,9 @@ char get_mode(){
 
 void switch_mode(char current_mode){
     switch(current_mode){
+        case 'A':
+            printf("Sorry, this mode is not implemented yet.\n");
+            break;
         case 'M':
             trigger_multiplication_mode();
             break;
@@ -25,6 +28,27 @@ void switch_mode(char current_mode){
         default:
             printf("Invalid mode, try again.\n");
             break;
+    }
+}
+
+void trigger_addition_and_subtraction_mode(){
+    char* num1;
+    char* num2;
+    char* result;
+    bool exit_mode = false;
+    
+    while (exit_mode == false){
+        printf("First number: ");
+        num1 = get_user_input_str();
+        printf("Second number: ");
+        num2 = get_user_input_str();
+        result;
+        free(num1);
+        free(num2);
+        printf("Result of addition is: %s \n", result);
+        free(result);
+
+        exit_mode = check_for_user_exit(true);
     }
 }
 
