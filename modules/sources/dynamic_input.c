@@ -16,7 +16,7 @@ char* get_user_input_str(){
   while (is_newline == false){
     //Check if next char isnt outside of limit
     if (char_i >= current_limit - 1){
-      str = resize_str_arr(str, &current_limit);
+      str = resize_str_arr(str, &current_limit, 0);
     }
 
     input_character = getchar();

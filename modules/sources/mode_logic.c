@@ -2,6 +2,7 @@
 #include "../headers/dynamic_input.h"
 #include "../headers/multiplication_logic.h"
 #include "../headers/factorial_logic.h"
+#include "../headers/addition_subtraction_logic.h"
 
 char get_mode(){
     char mode;
@@ -15,7 +16,7 @@ char get_mode(){
 void switch_mode(char current_mode){
     switch(current_mode){
         case 'A':
-            printf("Sorry, this mode is not implemented yet.\n");
+            trigger_addition_and_subtraction_mode();
             break;
         case 'M':
             trigger_multiplication_mode();
@@ -42,7 +43,7 @@ void trigger_addition_and_subtraction_mode(){
         num1 = get_user_input_str();
         printf("Second number: ");
         num2 = get_user_input_str();
-        result;
+        result = add_or_subtract(num1, num2);
         free(num1);
         free(num2);
         printf("Result of addition is: %s \n", result);

@@ -50,7 +50,7 @@ char* multiply_factorial_str(char* fact_str, int multiplier, size_t* arr_size){
   
   int carry_len = get_len_of_int(carry);
   if (carry_len + len >= *arr_size){
-    fact_str = resize_str_arr(fact_str, arr_size);
+    fact_str = resize_str_arr(fact_str, arr_size, 0);
   }
   //Adding null terminator in advance
   fact_str[len + carry_len] = '\0';
