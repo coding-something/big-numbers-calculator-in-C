@@ -41,11 +41,11 @@ char* multiply(char* raw_a, char* raw_b){
 
   //Call functions to handle negative numbers
   if (a.is_negative){
-    remove_minus_sign(a.raw_value, strlen(a.raw_value));
+    remove_sign(a.raw_value, strlen(a.raw_value));
     minus_sign_offset = 1;
   }
   if (b.is_negative){
-    remove_minus_sign(b.raw_value, strlen(b.raw_value));
+    remove_sign(b.raw_value, strlen(b.raw_value));
     minus_sign_offset = 1;
   }
 

@@ -5,7 +5,7 @@ bool check_for_minus_sign(char* num){
 }
 
 
-void remove_minus_sign(char* num, size_t len){
+void remove_sign(char* num, size_t len){
     for (size_t i = 1; i <= len; i++){
         num[i - 1] = num[i];
     }
