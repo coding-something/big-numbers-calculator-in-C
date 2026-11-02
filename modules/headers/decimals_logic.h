@@ -33,4 +33,14 @@ Inserts decimal point into its position using decimal_count. Assumes the num str
 */
 void insert_decimal_point(char* num, size_t decimal_count);
 
+/*
+Removes trailing zeros after decimal point.
+*/
+void remove_decimal_trailing_zeros(char* num_str, size_t decimal_point);
+
+/*
+This function is used to add trailing zeros so multiple number strings can have the same amount of decimals. Assumes reserve memory has been allocated.
+*/
+char* get_equal_decimals_num(char* num_str, size_t decimal_point_i, size_t equalized_decimal_count);
+
 #endif
