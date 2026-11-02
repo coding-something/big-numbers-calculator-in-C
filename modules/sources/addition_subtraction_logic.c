@@ -40,8 +40,9 @@ char* add_or_subtract(char* num1, char* num2){
     int result_minus_sign_offset = 0;
     int result_len_total_offset = 0;
     size_t result_len;
-    //UNUSED AS OF NOW
-    //int equalized_decimal_point_i;
+    size_t a_decimal_count = 0;
+    size_t b_decimal_count = 0;
+    size_t result_decimal_count = 0;
 
     //Handle negative numbers and plus signs
     if (a.is_negative || a.raw_value[0] == '+'){
@@ -53,11 +54,23 @@ char* add_or_subtract(char* num1, char* num2){
     //Handle decimal points
     if (a.is_decimal){
         a.raw_value_decimal_point = find_decimal_point_i(a.raw_value);
+        remove_decimal_trailing_zeros(a.raw_value, a.raw_value_decimal_point);
+        a_decimal_count = count_decimals(a.raw_value, a.raw_value_decimal_point);
         remove_decimal_point(a.raw_value, a.raw_value_decimal_point);
     }
     if (b.is_decimal){
         b.raw_value_decimal_point = find_decimal_point_i(b.raw_value);
+        remove_decimal_trailing_zeros(b.raw_value, b.raw_value_decimal_point);
+        b_decimal_count = count_decimals(b.raw_value, b.raw_value_decimal_point);
         remove_decimal_point(b.raw_value, b.raw_value_decimal_point);
+    }
+
+    //Make both number strings have same amount of decimals by adding 0 to one with less decimals
+    if (a_decimal_count > 0 || b_decimal_count > 0){
+        result_decimal_count = (a_decimal_count >= b_decimal_count) ? a_decimal_count : b_decimal_count;
+        //Offset 1 because of removal of decimal point
+        a.raw_value = get_equal_decimals_num(a.raw_value, a.raw_value_decimal_point - 1, result_decimal_count);
+        b.raw_value = get_equal_decimals_num(b.raw_value, b.raw_value_decimal_point - 1, result_decimal_count);
     }
 
     //Make both number strings of same size
@@ -68,6 +81,7 @@ char* add_or_subtract(char* num1, char* num2){
     result.is_negative = check_for_negative_addition_result(a.raw_value, b.raw_value, a.is_negative, b.is_negative);
     result_minus_sign_offset = (result.is_negative) ? 1 : 0;
     result_len_total_offset =  result_decimal_point_offset + result_minus_sign_offset + result_possible_size_offset;
+
     //Allocating memory for whole result before calculation
     result_len = strlen(a.raw_value) + result_len_total_offset;
     result.raw_value = malloc(result_len + 1); //1 is for null terminator
@@ -121,6 +135,10 @@ char* add_or_subtract(char* num1, char* num2){
 
     if (result.is_negative && result.value[0] != '0'){
         add_minus_sign(result.value, result_len);
+    }
+
+    if (result.is_decimal){
+        insert_decimal_point(result.value, result_decimal_count);
     }
 
     return result.value;

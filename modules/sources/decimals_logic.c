@@ -1,4 +1,5 @@
 #include "../headers/decimals_logic.h"
+#include "../headers/dynamic_memory.h"
 #include <string.h>
 #include <stdio.h>
 
@@ -81,4 +82,45 @@ void insert_decimal_point(char* num, size_t decimal_count){
     num[i + 1] = num[i];
     //Insert decimal point
     num[i] = '.';
+}
+
+void remove_decimal_trailing_zeros(char* num_str, size_t decimal_point_i){
+    for (size_t i = strlen(num_str) - 1; i >= decimal_point_i; i--){
+        //Add null terminator in front of trailing zeros
+        if (num_str[i] != '0'){
+            num_str[i + 1] = '\0';
+            return;
+        }
+    }
+}
+
+char* get_equal_decimals_num(char* num_str, size_t decimal_point_i, size_t equalized_decimal_count){
+    size_t last_decimal_i = decimal_point_i + equalized_decimal_count;
+    size_t num_len = strlen(num_str);
+    size_t num_size = num_len + 1;
+    bool passed_null_terminator = false;
+
+    //Prevent adding zeros to already equalized string.
+    if (num_len - 1 == last_decimal_i){
+        return num_str;
+    }
+
+    //Allocate additional memory for trailing zeros
+    num_str = resize_str_arr(num_str, &num_size, equalized_decimal_count);
+    
+    size_t i = decimal_point_i + 1;
+    while (i <= last_decimal_i){
+        //Finding first decimal index after already occupied decimal indexes.
+        if (num_str[i] == '\0'){
+            passed_null_terminator = true;
+        }
+
+        if (passed_null_terminator){
+            num_str[i] = '0';
+        }
+        i++;
+    }
+    num_str[i] = '\0';
+
+    return num_str;
 }
