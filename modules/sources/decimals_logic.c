@@ -95,20 +95,19 @@ void remove_decimal_trailing_zeros(char* num_str, size_t decimal_point_i){
 }
 
 char* get_equal_decimals_num(char* num_str, size_t decimal_point_i, size_t equalized_decimal_count){
-    size_t last_decimal_i = decimal_point_i + equalized_decimal_count;
+    //Adding decimal point index to non decimal numbers.
+    if (decimal_point_i == 0){
+        decimal_point_i = strlen(num_str);
+    }
+
+    size_t last_decimal_i = decimal_point_i + equalized_decimal_count - 1; //Offset 1 because decimal point is stripped
     size_t num_len = strlen(num_str);
     size_t num_size = num_len + 1;
     bool passed_null_terminator = false;
 
-    //Prevent adding zeros to already equalized string.
-    if (num_len - 1 == last_decimal_i){
-        return num_str;
-    }
-
     //Allocate additional memory for trailing zeros
     num_str = resize_str_arr(num_str, &num_size, equalized_decimal_count);
-    
-    size_t i = decimal_point_i + 1;
+    size_t i = decimal_point_i;
     while (i <= last_decimal_i){
         //Finding first decimal index after already occupied decimal indexes.
         if (num_str[i] == '\0'){

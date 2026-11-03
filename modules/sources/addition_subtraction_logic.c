@@ -36,7 +36,7 @@ char* add_or_subtract(char* num1, char* num2){
     };
     
     int result_possible_size_offset = 1;
-    int result_decimal_point_offset = (result.is_decimal) ? 1 : 0;
+    int result_decimal_point_offset = (result.is_decimal) ? 2 : 0; //2 because of decimal point and potential decimal lead 0
     int result_minus_sign_offset = 0;
     int result_len_total_offset = 0;
     size_t result_len;
@@ -69,8 +69,8 @@ char* add_or_subtract(char* num1, char* num2){
     if (a_decimal_count > 0 || b_decimal_count > 0){
         result_decimal_count = (a_decimal_count >= b_decimal_count) ? a_decimal_count : b_decimal_count;
         //Offset 1 because of removal of decimal point
-        a.raw_value = get_equal_decimals_num(a.raw_value, a.raw_value_decimal_point - 1, result_decimal_count);
-        b.raw_value = get_equal_decimals_num(b.raw_value, b.raw_value_decimal_point - 1, result_decimal_count);
+        a.raw_value = get_equal_decimals_num(a.raw_value, a.raw_value_decimal_point, result_decimal_count);
+        b.raw_value = get_equal_decimals_num(b.raw_value, b.raw_value_decimal_point, result_decimal_count);
     }
 
     //Make both number strings of same size
@@ -130,10 +130,10 @@ char* add_or_subtract(char* num1, char* num2){
     }
 
     //Remove lead zeros
-    result.value = filter_str_zeros(result.raw_value);
+    result.value = filter_str_zeros(result.raw_value, result.is_decimal);
     free(result.raw_value);
 
-    if (result.is_negative && result.value[0] != '0'){
+    if (result.is_negative && (result.value[0] != '0' || result.is_decimal)){
         add_minus_sign(result.value, result_len);
     }
 
