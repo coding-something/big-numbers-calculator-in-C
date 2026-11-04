@@ -30,7 +30,7 @@ void pre_fill_decimal_with_zeroes(char* num, size_t zero_count);
 
 /*
 Inserts decimal point into its position using decimal_count. Assumes the num string array has reserve indexes for all the decimals. Adds lead zero if 
-decimal point is at index zero.
+decimal point is at start of number.
 */
 void insert_decimal_point(char* num, size_t decimal_count);
 

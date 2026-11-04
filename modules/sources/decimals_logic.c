@@ -68,8 +68,8 @@ void insert_decimal_point(char* num, size_t decimal_count){
     size_t result_len = strlen(num);
     size_t i = result_len;
     //Pre fill with zeroes if input number length is lower than decimal count, which would cause i to be negative later on
-    if(i < decimal_count){
-        pre_fill_decimal_with_zeroes(num, decimal_count);
+    if(result_len < decimal_count){
+        pre_fill_decimal_with_zeroes(num, decimal_count - result_len);
         result_len = strlen(num);
         i = result_len;
     }
@@ -82,6 +82,25 @@ void insert_decimal_point(char* num, size_t decimal_count){
     num[i + 1] = num[i];
     //Insert decimal point
     num[i] = '.';
+
+    //Check if minus appeared after decimal point, can happen in edge cases
+    if (num[i + 1] == '-'){
+        num[i] = '-';
+        num[i + 1] = '.';
+    }
+
+    //Shift arr by one if decimal point is at start of num and add lead zero.
+    if (num[0] == '.' || (num[0] == '-' && num[1] == '.')){
+        size_t lead_zero_insert_i = (num[0] == '-') ? 1 : 0;
+        for (size_t i = strlen(num); i >= lead_zero_insert_i; i--){
+            num[i + 1] = num[i];
+
+            if (i == 0){
+                break;
+            }
+        }
+        num[lead_zero_insert_i] = '0';
+    }
 }
 
 void remove_decimal_trailing_zeros(char* num_str, size_t decimal_point_i){

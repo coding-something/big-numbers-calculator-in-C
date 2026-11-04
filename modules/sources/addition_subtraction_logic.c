@@ -4,8 +4,8 @@
 #include "../headers/multiplication_logic.h"
 #include "../headers/dynamic_memory.h"
 #include "../struct_headers/number_struct.h"
-#include "stdbool.h"
-#include "string.h"
+#include <stdio.h>
+#include <string.h>
 
 char* add_or_subtract(char* num1, char* num2){
     struct number a = {
@@ -139,6 +139,10 @@ char* add_or_subtract(char* num1, char* num2){
 
     if (result.is_decimal){
         insert_decimal_point(result.value, result_decimal_count);
+    }
+    //Remove possible lead zero in edge cases
+    if ((result.value[0] == '0' && result.value[1] != '.') || (result.value[0] == '-' && result.value[1] == '0' && result.value[2] != '.')){
+        result.value = filter_str_zeros(result.value, false);
     }
 
     return result.value;
