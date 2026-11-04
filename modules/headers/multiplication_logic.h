@@ -13,8 +13,8 @@ Simple function that writes 0 chars into char array and adds null terminator.
 void populate_str_with_zeros(char* str, int str_len);
 
 /*
-A function that returns the same, newly allocated string without leading zeros, does not free original str.
+A function that returns the same, newly allocated string without leading zeros, does not free original str. Option to keep one lead zero for decimals.
 */
-char* filter_str_zeros(const char* raw_str);
+char* filter_str_zeros(const char* raw_str, bool keep_decimal_lead_zero);
 
 #endif

@@ -49,8 +49,8 @@ char* multiply(char* raw_a, char* raw_b){
     minus_sign_offset = 1;
   }
 
-  a.value = filter_str_zeros(a.raw_value);
-  b.value = filter_str_zeros(b.raw_value);
+  a.value = filter_str_zeros(a.raw_value, false);
+  b.value = filter_str_zeros(b.raw_value, false);
   //Calculate length of result ahead of time, add reserve indexes for decimal point, minus sign and null terminator
   int result_len = strlen(a.value) + strlen(b.value) + total_decimal_count + minus_sign_offset + 1;
 
@@ -103,7 +103,7 @@ char* multiply(char* raw_a, char* raw_b){
   free(a.value);
   free(b.value);
   //Pass pointer to another variable in the struct and free to prevent memory leak
-  result.value = filter_str_zeros(result.raw_value);
+  result.value = filter_str_zeros(result.raw_value, false);
   free(result.raw_value);
 
   if (total_decimal_count > 0){
@@ -127,7 +127,7 @@ void populate_str_with_zeros(char* str, int str_len){
 }
 
 //Return same newly allocated string without leading zeros
-char* filter_str_zeros(const char* raw_str){
+char* filter_str_zeros(const char* raw_str, bool keep_decimal_lead_zero){
   int raw_str_len = strlen(raw_str);
   int first_non_zero_i = 0;
   while (first_non_zero_i < raw_str_len && raw_str[first_non_zero_i] == '0'){
@@ -141,6 +141,7 @@ char* filter_str_zeros(const char* raw_str){
     return filtered_str;
   }
   //Making copy without lead zeros
+  first_non_zero_i -= keep_decimal_lead_zero; //Offset for decimal lead zero
   int filtered_str_len = raw_str_len - first_non_zero_i;
   char* filtered_str = malloc(filtered_str_len + 1);
   for (int i = 0; i < filtered_str_len; i++){
